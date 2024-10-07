@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"io/fs"
 	"path/filepath"
 
 	"github.com/spf13/cobra"
@@ -35,6 +36,12 @@ to quickly create a Cobra application.`,
 			fmt.Printf("Error: %v", err)
 			return
 		}
+		err = filepath.WalkDir(path, func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+			return nil
+		})
 	},
 }
 
