@@ -1,11 +1,11 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -22,6 +22,19 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("walk called")
+		rawPath := "./src/main/java"
+		if len(args) > 1 {
+			fmt.Println("Error: too many args provided.")
+			return
+		}
+		if len(args) == 1 {
+			rawPath = args[0]
+		}
+		path, err := filepath.Abs(rawPath)
+		if err != nil {
+			fmt.Printf("Error: %v", err)
+			return
+		}
 	},
 }
 
